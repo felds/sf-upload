@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% for entity in entities %}
+        <p>
+            {{ entity.id }} - <a href="#">edit</a>
+        </p>
+    {% endfor %}
+
+    <p>
+        <a href="#">new media</a>
+    </p>
+{% endblock %}
+

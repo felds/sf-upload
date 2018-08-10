@@ -40,7 +40,6 @@ class UploadType extends AbstractType implements DataMapperInterface
         $builder
             ->add('id', HiddenType::class)
             ->add('file', FileType::class)
-            ->add('submit', SubmitType::class)
             ->setDataMapper($this)
             ->addEventListener(FormEvents::PRE_SUBMIT, function (FormEvent $event) {
                 $data = $event->getData();

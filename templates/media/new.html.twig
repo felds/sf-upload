@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Media</h1>
+
+    {{ form(form) }}
+
+    {% set upload = entity.upload %}
+    {% if upload %}
+        <img src="{{ path('upload', {id: upload.id}) }}" alt="" width="200px">
+    {% endif %}
+{% endblock %}
+
