@@ -2,13 +2,26 @@
 
 {% block body %}
     {% for entity in entities %}
-        <p>
-            {{ entity.id }} - <a href="#">edit</a>
-        </p>
+        {% set upload = entity.upload %}
+        <div style="overflow: hidden; margin-bottom: 1rem;">
+            {% if upload %}
+                <img src="{{ path('upload', {id: upload.id}) }}" alt="" style="float: left; width: 7rem;">
+            {% else %}
+                <em>no upload</em>
+            {% endif %}
+
+            <p style="margin-left: 8rem;">
+                {{ entity.description }}
+
+                <br>
+                <a href="{{ path('app_media_edit', {id: entity.id}) }}">edit</a>
+            </p>
+
+        </div>
     {% endfor %}
 
     <p>
-        <a href="#">new media</a>
+        <a href="{{ path('app_media_new') }}">new media</a>
     </p>
 {% endblock %}
 

@@ -5,9 +5,13 @@
 
     {{ form(form) }}
 
+    <p>
+        <a href="{{ path('app_media_index') }}">to index</a>
+    </p>
+
     {% set upload = entity.upload %}
     {% if upload %}
-        <img src="{{ path('upload', {id: upload.id}) }}" alt="" width="200px">
+        <img src="{{ path('upload', {id: upload.id}) }}" alt="" style="width: 30rem">
     {% endif %}
 {% endblock %}
 

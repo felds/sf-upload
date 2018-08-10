@@ -23,6 +23,7 @@ class Media
      * @var Upload|null
      * @ORM\OneToOne(targetEntity=Upload::class)
      * @Assert\NotNull()
+     * @Assert\Valid()
      */
     private $upload;
 

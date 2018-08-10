@@ -6,7 +6,6 @@ namespace App\Controller;
 use App\Entity\Media;
 use App\Form\MediaType;
 use Doctrine\ORM\EntityManagerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/media")
- * @Template()
  */
 class MediaController extends Controller
 {
@@ -35,7 +33,9 @@ class MediaController extends Controller
     {
         $entities = $this->entityManager->getRepository(Media::class)->findAll();
 
-        return ['entities' => $entities];
+        return $this->render('media/index.html.twig', [
+            'entities' => $entities,
+        ]);
     }
 
     /**
@@ -48,10 +48,38 @@ class MediaController extends Controller
         $form->add('submit', SubmitType::class);
 
         $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($entity);
+            $this->entityManager->flush();
 
-        return [
+            return $this->redirectToRoute('app_media_edit', ['id' => $entity->getId()]);
+        }
+
+        return $this->render('media/form.html.twig', [
             'form' => $form->createView(),
             'entity' => $entity,
-        ];
+        ]);
+    }
+
+    /**
+     * @Route("/{id}/edit")
+     */
+    public function editAction(Request $request, Media $entity)
+    {
+        $form = $this->createForm(MediaType::class, $entity);
+        $form->add('submit', SubmitType::class);
+
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()) {
+            $this->entityManager->persist($entity);
+            $this->entityManager->flush();
+
+            return $this->redirectToRoute('app_media_edit', ['id' => $entity->getId()]);
+        }
+
+        return $this->render('media/form.html.twig', [
+            'form' => $form->createView(),
+            'entity' => $entity,
+        ]);
     }
 }

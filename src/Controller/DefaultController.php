@@ -32,6 +32,6 @@ class DefaultController extends Controller
 
         $form->handleRequest($request);
 
-        return ['form' => $form->createView()];
+        return ['form.html.twig' => $form->createView()];
     }
 }
