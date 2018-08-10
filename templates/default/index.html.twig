@@ -1,0 +1,11 @@
+{{ form(form) }}
+{{ dump(form.vars.value) }}
+
+<fieldset>
+    <legend>Image</legend>
+
+    {% set upload = form.vars.value %}
+    {% if upload %}
+        <img src="{{ path('upload', {id: upload.id}) }}">
+    {% endif %}
+</fieldset>
